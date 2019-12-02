@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="MVVM.Parts.View.SUDOKUWindow">
+  <grid id="27dc6" binding="mainPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="c190a" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="fd731" class="javax.swing.JLabel" binding="difficultyLabel">
+            <constraints/>
+            <properties>
+              <font name="Droid Sans Mono" size="22"/>
+              <text value="Difficulty:"/>
+            </properties>
+          </component>
+          <component id="d475" class="javax.swing.JComboBox" binding="difficultyComBox">
+            <constraints/>
+            <properties>
+              <font name="Droid Sans Mono" size="22"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
