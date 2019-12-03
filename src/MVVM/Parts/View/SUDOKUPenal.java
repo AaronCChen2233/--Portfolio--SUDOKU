@@ -13,14 +13,27 @@ import java.awt.event.KeyEvent;
 public class SUDOKUPenal extends JPanel {
 
     String[][] SUDOKUQuestionTable;
+    boolean isDone;
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
     public SUDOKUPenal() {
         super();
         setLayout(new GridLayout(3, 3));
     }
 
     public void generate(int difficulty) {
+        isDone = false;
+        setEnabled(true);
         removeAll();
         SUDOKUQuestionTable = SUDOKUGeneraterModel.generate(difficulty);
+        JNumberTextPane[][] jNumberTextPaneArray = new JNumberTextPane[9][9];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 JPanel smallPanel = new JPanel(new GridLayout(3, 3));
@@ -34,17 +47,34 @@ public class SUDOKUPenal extends JPanel {
                             public void processKeyEvent(KeyEvent ev) {
                                 if (Character.isDigit(ev.getKeyChar()) || ev.getKeyChar() == 8) {
                                     super.processKeyEvent(ev);
-                                    String inputString = ev.getKeyChar()+"";
+                                    String inputString = ev.getKeyChar() + "";
                                     JNumberTextPane thisPane = ((JNumberTextPane) ev.getSource());
                                     thisPane.setText(inputString);
                                     SUDOKUQuestionTable[ip][jp] = inputString;
+                                    check();
+                                }
+                            }
 
-                                    if(SUDOKUGeneraterModel.allowPutChecker(SUDOKUQuestionTable,ip,jp,inputString)){
-                                        thisPane.setForeground(Color.gray);
-                                    }else{
-                                        thisPane.setForeground(Color.red);
+                            private void check() {
+                                boolean  checkIsDone = true;
+                                for (int i = 0; i < 9; i++) {
+                                    for (int j = 0; j < 9; j++) {
+                                        /*skip disable*/
+                                        JNumberTextPane jp = jNumberTextPaneArray[i][j];
+                                        if (jp.isEnabled() && !jp.getText().equals("")) {
+                                            if (SUDOKUGeneraterModel.allowPutChecker(SUDOKUQuestionTable, i, j, jp.getText())) {
+                                                jp.setForeground(Color.gray);
+                                            } else {
+                                                jp.setForeground(Color.red);
+                                                checkIsDone = false;
+                                            }
+                                        }
+                                        else if(jp.getText().equals("")) {
+                                            checkIsDone = false;
+                                        }
                                     }
                                 }
+                                isDone = checkIsDone;
                             }
                         };
 
@@ -62,6 +92,7 @@ public class SUDOKUPenal extends JPanel {
                             n.setEnabled(false);
                         }
                         smallPanel.add(n);
+                        jNumberTextPaneArray[ip][jp] = n;
                     }
                 }
                 smallPanel.updateUI();

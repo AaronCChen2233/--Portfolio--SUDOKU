@@ -25,6 +25,13 @@
               <font name="Droid Sans Mono" size="22"/>
             </properties>
           </component>
+          <component id="c13b0" class="javax.swing.JLabel" binding="timeLable">
+            <constraints/>
+            <properties>
+              <font name="Droid Sans Mono" size="22"/>
+              <text value=""/>
+            </properties>
+          </component>
         </children>
       </grid>
     </children>
